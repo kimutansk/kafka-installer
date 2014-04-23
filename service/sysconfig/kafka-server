@@ -1,0 +1,14 @@
+# This file contains configurations for kafka-server startup
+JVM_TYPE="server"
+KAFKA_OPTIONS=""
+
+# Nimbus configuration options
+# KAFKA_JMX_OPTS=
+# JMX_PORT= 
+
+# JAVA_HOME=
+
+
+
+
+
