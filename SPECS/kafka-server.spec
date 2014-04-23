@@ -44,7 +44,7 @@ exit 0
 # Copy the kafka file to the right places
 %{__mkdir_p} %{buildroot}/opt/kafka-server-%{version}
 %{__mkdir_p} %{buildroot}/var/opt/kafka-server
-%{__cp} -R * %{buildroot}/opt/kafka-server-%{version}/
+%{__cp} -R kafka/* %{buildroot}/opt/kafka-server-%{version}/
 %{__ln_s} /opt/kafka-server-%{version} %{buildroot}/opt/kafka-server
 
 # Copy the service file to the right places

@@ -8,7 +8,7 @@ KAFKA_OPTIONS=""
 
 # JAVA_HOME=
 
-
-
+# JVM Size setting is described at kafka-server-start.sh
+# Confirm kafka-server-start.sh and modify setting.
 
 
