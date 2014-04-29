@@ -72,4 +72,9 @@ kafka-0.8.1/  Zookeeperルートディレクトリ
 
 
 7.rpmbuildが可能な環境において、kafka-0.8.1.tgzと
-  kafka.spec()をディレクトリ（/home/rpmbuilder/rpmbuild/SOURCES）に配置して下記のコマンドを実行する。 
+  kafka.spec(https://github.com/kimutansk/kafka-installer/blob/master/SPECS/kafka.spec)を
+  ディレクトリ（/home/rpmbuilder/rpmbuild/SOURCES）に配置して下記のコマンドを実行する。 
+# rpmbuild -bb kafka.spec
+→　ファイル「kafka-0.8.1-1.el6.x86_64.rpm」が
+　　ディレクトリ（/home/rpmbuilder/rpmbuild/RPMS）配下に生成される。
+
