@@ -1,0 +1,75 @@
+■RPMファイルの作成方法(kafka-0.8.1)
+
+予め、rpmbuildが可能な環境を用意しておくこと。
+rpmbuildが可能な環境の構築手順は（ http://acro-engineer.hatenablog.com/entry/20120530/1338415656 ）参照。 
+
+
+1.Kafka媒体ダウンロード
+http://kafka.apache.org/downloads.html
+http://ftp.jaist.ac.jp/pub/apache/kafka/0.8.1/kafka_2.9.2-0.8.1.tgz
+
+
+2.Kafka媒体展開
+Linux上でStormのリリース媒体を展開する。
+# tar xvpzf kafka_2.9.2-0.8.1.tgz
+→　ディレクトリ「kafka_2.9.2-0.8.1」が作成
+
+
+3.設定ファイル修正
+「kafka_2.9.2-0.8.1」ディレクトリ配下のファイルを下記のように修正する。
+
+・config/log4j.properties
+＝＝＝＝＝
+log4j.rootLogger=INFO, stdout
+
+log4j.appender.cleanerAppender.File=log-cleaner.log
+＝＝＝＝＝
+↓
+＝＝＝＝＝
+log4j.rootLogger=INFO, kafkaAppender
+
+log4j.appender.cleanerAppender.File=${kafka.logs.dir}/log-cleaner.log
+＝＝＝＝＝
+
+
+・config/server.properties
+＝＝＝＝
+log.dirs=/tmp/kafka-logs
+＝＝＝＝
+↓
+＝＝＝＝
+log.dirs=/opt/kafka/kafka-logs
+＝＝＝＝
+
+
+4.ディレクトリ「kafka_2.9.2-0.8.1」を「kafka」にリネームし、
+  新たにディレクトリ「kafka-0.8.1」を作成してその配下に配置する。
+# mv kafka_2.9.2-0.8.1 kafka
+# mkdir kafka-0.8.1
+# mv kafka kafka-0.8.1/
+
+
+5.ディレクトリ「kafka-0.8.1」配下に
+  Github(https://github.com/kimutansk/kafka-installer)から
+  ダウンロードしたファイルの「service」配下のファイルを配置する。
+
+ディレクトリ構造的には下記のようになる。
+
+＝＝＝＝
+kafka-0.8.1/  Zookeeperルートディレクトリ
+├―init.d/
+｜  └―kafka-server
+｜
+├―kafka/ ※Kafkaの媒体を展開、リネームしたもの
+｜
+└―sysconfig
+    └―kafka-server
+＝＝＝＝
+
+
+6.ディレクトリ「kafka-0.8.1」を「kafka-0.8.1.tgz」として圧縮する。
+# tar cvzf kafka-0.8.1.tgz kafka-0.8.1
+
+
+7.rpmbuildが可能な環境において、kafka-0.8.1.tgzと
+  kafka.spec()をディレクトリ（/home/rpmbuilder/rpmbuild/SOURCES）に配置して下記のコマンドを実行する。 

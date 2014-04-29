@@ -1,11 +1,11 @@
-Name: kafka-server	
+Name: kafka	
 Version: 0.8.1  
 Release: 1%{?dist}  
 Summary: A high-throughput distributed messaging system.	
 Group: Applications/Internet
 License: MIT
 URL: http://kafka.apache.org/
-Source: https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1/kafka-server-0.8.1.tgz
+Source: https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1/kafka-0.8.1.tgz
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 Requires(pre): shadow-utils
 %description
@@ -42,10 +42,10 @@ exit 0
 %install
 
 # Copy the kafka file to the right places
-%{__mkdir_p} %{buildroot}/opt/kafka-server-%{version}
-%{__mkdir_p} %{buildroot}/var/opt/kafka-server
-%{__cp} -R kafka/* %{buildroot}/opt/kafka-server-%{version}/
-%{__ln_s} /opt/kafka-server-%{version} %{buildroot}/opt/kafka-server
+%{__mkdir_p} %{buildroot}/opt/kafka-%{version}
+%{__mkdir_p} %{buildroot}/var/opt/kafka
+%{__cp} -R kafka/* %{buildroot}/opt/kafka-%{version}/
+%{__ln_s} /opt/kafka-%{version} %{buildroot}/opt/kafka
 
 # Copy the service file to the right places
 %{__mkdir_p} %{buildroot}/etc/init.d
@@ -63,16 +63,16 @@ echo $(cd %{buildroot} && find . -type l | cut -c 2-) | tr ' ' '\n' >> files.txt
 %defattr(644,kafka,kafka,755)
 
 %clean
-%{__rm} -rf %{buildroot}/opt/kafka-server-%{version}
-%{__rm} %{buildroot}/opt/kafka-server
+%{__rm} -rf %{buildroot}/opt/kafka-%{version}
+%{__rm} %{buildroot}/opt/kafka
 
 %post
-chown -R kafka:kafka /opt/kafka-server-%{version}
-chmod -R 755 /opt/kafka-server/bin/*
+chown -R kafka:kafka /opt/kafka-%{version}
+chmod -R 755 /opt/kafka/bin/*
 exit 0
 
 %postun
-rm -rf /opt/kafka-server-%{version}
+rm -rf /opt/kafka-%{version}
 exit 0
 
 %preun
@@ -83,6 +83,6 @@ fi
 
 
 %changelog
-* Fri Apr 05 2014 Kimura Sotaro
+* Fri Apr 30 2014 Kimura Sotaro
 - kafka-0.8.1 Packaging
 
