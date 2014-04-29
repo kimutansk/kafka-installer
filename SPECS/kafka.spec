@@ -50,30 +50,26 @@ exit 0
 # Copy the service file to the right places
 %{__mkdir_p} %{buildroot}/etc/init.d
 %{__mkdir_p} %{buildroot}/etc/sysconfig
+%{__mkdir_p} %{buildroot}/var/log/kafka
+%{__mkdir_p} %{buildroot}/var/run/kafka
 
 %{__mv} init.d/kafka-server %{buildroot}/etc/init.d
 %{__mv} sysconfig/kafka-server %{buildroot}/etc/sysconfig/kafka-server
 
-# Form a list of files for the files directive
-echo $(cd %{buildroot} && find . -type f | cut -c 2-) | tr ' ' '\n' > files.txt
-# Grab the symlinks too
-echo $(cd %{buildroot} && find . -type l | cut -c 2-) | tr ' ' '\n' >> files.txt
-
-%files -f files.txt
-%defattr(644,kafka,kafka,755)
+%files
+%defattr(777,kafka,kafka)
+/opt/kafka
+%defattr(-,kafka,kafka,755)
+/opt/kafka-%{version}
+%dir /var/log/kafka
+%dir /var/run/kafka
+%defattr(755,root,root)
+/etc/init.d/kafka-server
+%defattr(644,root,root)
+/etc/sysconfig/kafka-server
 
 %clean
-%{__rm} -rf %{buildroot}/opt/kafka-%{version}
 %{__rm} %{buildroot}/opt/kafka
-
-%post
-chown -R kafka:kafka /opt/kafka-%{version}
-chmod -R 755 /opt/kafka/bin/*
-exit 0
-
-%postun
-rm -rf /opt/kafka-%{version}
-exit 0
 
 %preun
 if [ "$1" = "0" ]; then
