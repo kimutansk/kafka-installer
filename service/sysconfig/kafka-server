@@ -1,14 +1,11 @@
 # This file contains configurations for kafka-server startup
-JVM_TYPE="server"
-KAFKA_OPTIONS=""
+KAFKA_HEAP_OPTS="-Xmx1G -Xms1G"
+KAFKA_JMX_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false  -Dcom.sun.management.jmxremote.ssl=false"
+KAFKA_JVM_PERFORMANCE_OPTS="-server -XX:+UseCompressedOops -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -XX:+CMSScavengeBeforeRemark -XX:+DisableExplicitGC -Djava.awt.headless=true"
 
-# Nimbus configuration options
-# KAFKA_JMX_OPTS=
-# JMX_PORT= 
+GC_LOG_FILE_NAME=kafkaServer-gc.log
+KAFKA_GC_LOG_OPTS="-Xloggc:$LOG_DIR/$GC_LOG_FILE_NAME -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps "
 
-# JAVA_HOME=
+KAFKA_LOG4J_OPTS="-Dkafka.logs.dir=$LOG_DIR -Dlog4j.configuration=$KAFKA_CONF/log4j.properties"
 
-# JVM Size setting is described at kafka-server-start.sh
-# Confirm kafka-server-start.sh and modify setting.
-
-
+KAFKA_OPTS=""

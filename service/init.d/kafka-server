@@ -14,8 +14,12 @@ KAFKA_USER=kafka
 PID_FILE="/var/run/kafka/kafka-server.pid"
 
 KAFKA_HOME="/opt/kafka"
-KAFKA_LIB="$KAFKA_HOME/lib"
 KAFKA_CONF="$KAFKA_HOME/conf"
+
+KAFKA_CLASSPATH="$KAFKA_HOME/lib/*"
+SERVER_PROPERTIES="$KAFKA_CONF/server.properties"
+
+LOG_DIR="/var/log/kafka"
 
 # Source config
 . /etc/sysconfig/kafka-server
@@ -27,8 +31,9 @@ start() {
     else
     	echo "Starting kafka server..."
     fi 
-    KAFKA_CMD="java -$JVM_TYPE -Xmx$SUPERVISOR_JVM_MEMORY -Duser.dir=\"$STORM_HOME\" -Djava.library.path=\"$JAVA_LIBRARY_PATH\" -Dstorm.options=\"$STORM_OPTIONS\" -Dstorm.home=\"$STORM_HOME\" -Dlogfile.name=supervisor.log $SUPERVISOR_JVM_OPTS -cp \"$CLASSPATH\" backtype.storm.daemon.supervisor &"
-    runuser --shell=/bin/bash --preserve-environment $KAFKA_USER --command="$STORM_CMD > /dev/null && echo \$! > $PID_FILE"
+    KAFKA_CMD="java $KAFKA_HEAP_OPTS $KAFKA_JVM_PERFORMANCE_OPTS $KAFKA_GC_LOG_OPTS $KAFKA_JMX_OPTS $KAFKA_LOG4J_OPTS $KAFKA_OPTS -cp $KAFKA_CLASSPATH kafka.Kafka $SERVER_PROPERTIES &"
+    echo $KAFKA_CMD
+    # runuser --shell=/bin/bash --preserve-environment $KAFKA_USER --command="$KAFKA_CMD > $KAFKA_LOG/kafka-server.out && echo \$! > $PID_FILE"
     RETVAL=$?
     kakfa_status
     return $RETVAL
