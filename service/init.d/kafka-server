@@ -32,8 +32,7 @@ start() {
     	echo "Starting kafka server..."
     fi 
     KAFKA_CMD="java $KAFKA_HEAP_OPTS $KAFKA_JVM_PERFORMANCE_OPTS $KAFKA_GC_LOG_OPTS $KAFKA_JMX_OPTS $KAFKA_LOG4J_OPTS $KAFKA_OPTS -cp $KAFKA_CLASSPATH kafka.Kafka $SERVER_PROPERTIES &"
-    echo $KAFKA_CMD
-    # runuser --shell=/bin/bash --preserve-environment $KAFKA_USER --command="$KAFKA_CMD > $KAFKA_LOG/kafka-server.out && echo \$! > $PID_FILE"
+    runuser --shell=/bin/bash --preserve-environment $KAFKA_USER --command="$KAFKA_CMD > $KAFKA_LOG/kafka-server.out && echo \$! > $PID_FILE"
     RETVAL=$?
     kakfa_status
     return $RETVAL
