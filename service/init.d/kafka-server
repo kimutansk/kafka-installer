@@ -14,9 +14,9 @@ KAFKA_USER=kafka
 PID_FILE="/var/run/kafka/kafka-server.pid"
 
 KAFKA_HOME="/opt/kafka"
-KAFKA_CONF="$KAFKA_HOME/conf"
+KAFKA_CONF="$KAFKA_HOME/config"
 
-KAFKA_CLASSPATH="$KAFKA_HOME/lib/*"
+CLASSPATH="$KAFKA_HOME/libs/*"
 SERVER_PROPERTIES="$KAFKA_CONF/server.properties"
 
 LOG_DIR="/var/log/kafka"
@@ -31,8 +31,8 @@ start() {
     else
     	echo "Starting kafka server..."
     fi 
-    KAFKA_CMD="java $KAFKA_HEAP_OPTS $KAFKA_JVM_PERFORMANCE_OPTS $KAFKA_GC_LOG_OPTS $KAFKA_JMX_OPTS $KAFKA_LOG4J_OPTS $KAFKA_OPTS -cp $KAFKA_CLASSPATH kafka.Kafka $SERVER_PROPERTIES &"
-    runuser --shell=/bin/bash --preserve-environment $KAFKA_USER --command="$KAFKA_CMD > $KAFKA_LOG/kafka-server.out && echo \$! > $PID_FILE"
+    KAFKA_CMD="java $KAFKA_HEAP_OPTS $KAFKA_JVM_PERFORMANCE_OPTS $KAFKA_GC_LOG_OPTS $KAFKA_JMX_OPTS $KAFKA_LOG4J_OPTS $KAFKA_OPTS -cp \"$CLASSPATH\" kafka.Kafka $SERVER_PROPERTIES &"
+    runuser --shell=/bin/bash --preserve-environment $KAFKA_USER --command="$KAFKA_CMD &>> $LOG_DIR/kafka-server.out && echo \$! > $PID_FILE"
     RETVAL=$?
     kakfa_status
     return $RETVAL

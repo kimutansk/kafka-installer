@@ -6,6 +6,6 @@ KAFKA_JVM_PERFORMANCE_OPTS="-server -XX:+UseCompressedOops -XX:+UseParNewGC -XX:
 GC_LOG_FILE_NAME=kafkaServer-gc.log
 KAFKA_GC_LOG_OPTS="-Xloggc:$LOG_DIR/$GC_LOG_FILE_NAME -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamps "
 
-KAFKA_LOG4J_OPTS="-Dkafka.logs.dir=$LOG_DIR -Dlog4j.configuration=$KAFKA_CONF/log4j.properties"
+KAFKA_LOG4J_OPTS="-Dkafka.logs.dir=$LOG_DIR -Dlog4j.configuration=file:$KAFKA_CONF/log4j.properties"
 
 KAFKA_OPTS=""
