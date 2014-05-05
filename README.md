@@ -27,11 +27,11 @@ there are some important steps you need to do to prepare your system.
 ## Installing kafka package
 
 1.Download kafka rpm package.  
-  wget https://s3.amazonaws.com/publicarchive/kafka/kafka-0.8.1-1.el6.x86_64.rpm  
+  wget https://s3.amazonaws.com/publicarchive/kafka/kafka-0.8.1.1-1.el6.x86_64.rpm  
 
 2.Install the kafka RPM:
 ```
-# sudo rpm -ivh kafka-0.8.1-1.el6.x86_64.rpm  
+# sudo rpm -ivh kafka-0.8.1.1-1.el6.x86_64.rpm  
 ```
 
 3.Set the configuration.  
@@ -63,7 +63,7 @@ Stop
 ## Dependency libraries
 
 Project    : Apache Kafka  
-Version    : 0.8.1  
+Version    : 0.8.1.1  
 Lisence    : Apache License Version 2.0  
 Source URL : http://kafka.apache.org/  
 
