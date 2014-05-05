@@ -1,11 +1,11 @@
 Name: kafka	
-Version: 0.8.1  
+Version: 0.8.1.1  
 Release: 1%{?dist}  
 Summary: A high-throughput distributed messaging system.	
 Group: Applications/Internet
 License: MIT
 URL: http://kafka.apache.org/
-Source: https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1/kafka-0.8.1.tgz
+Source: https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.1.1/kafka-0.8.1.1.tgz
 BuildRoot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 Requires(pre): shadow-utils
 %description
@@ -79,6 +79,9 @@ fi
 
 
 %changelog
+* Mon May 5 2014 Kimura Sotaro
+- kafka-0.8.1.1 Packaging
+
 * Fri Apr 30 2014 Kimura Sotaro
 - kafka-0.8.1 Packaging
 
